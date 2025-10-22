@@ -59,20 +59,24 @@ _main:				// Start of main function
 	// Now, we should tell the open function to read the file
 	// How did we say to do that in class?
 	// The second argument is always put into the x1 register
-
+	mov x1, 0
 	mov	x16, #5		// Put the number 5 into register x16 (open)
 	svc	#0x80		// Call the open function with 2 arguments
-mov x1, 0
+
 	// Here, we need to check the number that the open function gives
 	// back to us.
 	// If the number is less than 0, we should go to the error function
 	// Whenever a function gives you back a number, that number will
 	// live in the x0 register.
+	cmp x0, 0
+	blt error
+
 
 	// Now, we should save the number the open function gave back to us
 	// Let's say it to the x20 register (for reason outside this class,
 	// it needs to be the x20 register; come talk to me during office
 	// hours if you are curious why).
+
 
 	// The last sub-problem to solve in the main function is to give
 	// ourselves some space to store the letters we read from the file.
