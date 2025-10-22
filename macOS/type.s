@@ -62,7 +62,7 @@ _main:				// Start of main function
 
 	mov	x16, #5		// Put the number 5 into register x16 (open)
 	svc	#0x80		// Call the open function with 2 arguments
-
+mov x1, 0
 	// Here, we need to check the number that the open function gives
 	// back to us.
 	// If the number is less than 0, we should go to the error function
