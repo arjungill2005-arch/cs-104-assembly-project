@@ -8,10 +8,25 @@ _main:				// Start of main function
 	// and give ourself space to read the letters in the file we open.
 	// main is a special name: it tells the computer that this is the
 	// function to execute first. macOS calls it _main.
+	cmp x0, #2
+	bne error
 
 	// I will break up all the sub-problems into their own little
 	// paragraphs. Feel free to come to office hours if you want to
 	// debug your program and your thinking with me.
+
+	ldr x0, [x1, #8]
+
+	mov x1, #0
+	mov x16, #5
+	svc #0x80
+
+	cmp x0, #0
+	blt error
+
+	mov x20, x0
+
+	sub sp, sp, #8
 
 	// Remember when we talked about registers? What are registers?
 	// We can also say that registers are effectively built-in variables
@@ -121,7 +136,26 @@ loop:				// Start of the loop function
 	// here, it means everything was success for this letter and we
 	// should jump back to the top of the loop function so we can do
 	// it all again with the next letter.
+	mov x0, x20
+	mov x1, sp
+	mov x2, #1
+	mov x16, #3
+	svc #0x80
 
+	cmp x0, #0
+	beq done
+	blt error
+
+	mov x0, #1
+	mov x1, sp
+	mov x2, #1
+	mov x16, #4
+	svc #0x80
+
+	cmp x0 #1
+	bne error
+
+	b 		loop
 error:				// Start of the error function
 	// You don't need to do anything with the error and done functions.
 	mov	x0, #1		// Put the number 1 into register x0
